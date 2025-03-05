@@ -1,0 +1,272 @@
+---------------------PROGRAM -3-----------------
+
+
+import nltk 
+nltk.download('stopwords')
+nltk.download('punkt')
+nltk.download('wordnet')
+
+
+
+
+
+
+import nltk 
+from nltk.tokenize import word_tokenize
+nltk.download('punkt_tab')
+text="The quick brown foxes are jumping over the lazy dog. Foxes are fast and clever animals!"
+words=word_tokenize(text)
+print("Text:\n",text)
+print(len(words))
+
+
+
+
+
+
+import nltk 
+nltk.download('punkt_tab')
+text="The quick brown foxes are jumping over the lazy dog. Foxes are fast and clever animals!"
+print(text.lower())
+
+
+
+
+import nltk 
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+nltk.download('punkt_tab')
+nltk.download('stopwords')
+text="The quick brown foxes are jumping over the lazy dog. Foxes are fast and clever animals!"
+text=text.lower()
+print("Text:",text)
+word=word_tokenize(text)
+stopwords=set(stopwords.words('english'))
+print('10 stop words')
+print(list(stopwords)[:10])
+words=[]
+for i in word:
+  if i not in stopwords:
+    words.append(i)
+print('After removing the stopwords:')
+print(*words)
+
+
+
+import nltk 
+from nltk.tokenize import word_tokenize
+from nltk.stem import PorterStemmer
+nltk.download('punkt_tab')
+nltk.download('stopwords')
+text="The quick brown foxes are jumping over the lazy dog. Foxes are fast and clever animals!"
+text=text.lower()
+print("Text:",text)
+word=word_tokenize(text)
+stemmer=PorterStemmer()
+stemmed_words=[stemmer.stem(word) for word in word]
+print("Stemming words:")
+print(stemmed_words)
+
+
+
+
+
+
+
+import nltk 
+from nltk.tokenize import word_tokenize
+from nltk.stem import WordNetLemmatizer
+nltk.download('punkt_tab')
+nltk.download('stopwords')
+text="The quick brown foxes are jumping over the lazy dog. Foxes are fast and clever animals!"
+text=text.lower()
+print("Text:",text)
+word=word_tokenize(text)
+lemmatizer=WordNetLemmatizer()
+lemmatized_words=[lemmatizer.lemmatize(words) for words in word]
+print("Lemmating words:")
+print(lemmatized_words)
+
+
+
+
+
+
+import nltk 
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+from nltk.stem import PorterStemmer,WordNetLemmatizer
+nltk.download('punkt_tab')
+nltk.download('stopwords')
+nltk.download('wordnet')
+text="The quick brown foxes are jumping over the lazy dog. Foxes are fast and clever animals!"
+words=word_tokenize(text)
+stopwords=set(stopwords.words('english'))
+filtered_words=[word for word in words if word.lower() not in stopwords]
+lowercase_words=[word.lower() for word in filtered_words]
+lemmatizer=WordNetLemmatizer()
+lemmatized_words=[lemmatizer.lemmatize(word) for word in lowercase_words]
+stemmer=PorterStemmer()
+stemmed_words=[stemmer.stem(word) for word in lowercase_words]
+
+print("words:",words)
+print("filtered words:",filtered_words)
+print("Lowercase words:",lowercase_words)
+print("Lemmating words:",lemmatized_words)
+print("Stemming words:",stemmed_words)
+
+
+
+-------------------------------program 4-----------------------------------
+
+
+import nltk 
+nltk.download('punkt_tab')
+nltk.download('averaged_perceptron_tagger')
+print('Successfully downloaded')
+
+
+
+
+
+
+import nltk 
+from nltk.tokenize import word_tokenize
+from nltk import pos_tag
+import pandas as pd 
+nltk.download('punkt_tab')
+nltk.download('averaged_perceptron_tagger_eng')
+text="Elon Musk is the CEO of Tesla."
+tokens=word_tokenize(text)
+print("Tokens:",*tokens)
+pos_tags=pos_tag(tokens)
+df=pd.DataFrame(pos_tags,columns=['Word','pos'])
+print('pos tags in data frame:')
+print(df)
+
+
+
+
+
+
+
+from nltk.corpus import reuters
+import nltk 
+nltk.download('reuters')
+print('10 filids of reuters dataset:')
+print(reuters.fileids()[:10])
+text=reuters.raw('test/14828')
+print('Extract the text from the test/14828:')
+print(text[:50])
+
+
+
+
+
+
+import nltk 
+from nltk.tokenize import word_tokenize
+from nltk import pos_tag
+import pandas as pd 
+from nltk.corpus import reuters
+nltk.download('reuters')
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
+print('10 filids of reuters dataset:')
+print(reuters.fileids()[:10])
+text=reuters.raw('test/14828')
+print('Extract the text from the test/14828:')
+print(text[:50])
+tokens=word_tokenize(text)
+pos_tags=pos_tag(tokens)
+df=pd.DataFrame(pos_tags,columns=['Word','pos'])
+print('pos tags in data frame:')
+print(df)
+
+
+
+
+
+
+
+import nltk 
+from nltk.tokenize import word_tokenize
+from nltk import pos_tag,ne_chunk
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
+nltk.download('maxent_ne_chunker_tab')
+nltk.download('words')
+text="AppleInc. was founded by Steve Jobs,Steve Wozniak and Ronald Wayne in 1976."
+tokens=word_tokenize(text)
+tagged_tokens=pos_tag(tokens)
+ner_tree=ne_chunk(tagged_tokens)
+def extract_entities(ner_tree):
+  entities=[]
+  for chunk in ner_tree:
+    if hasattr(chunk,'label'):
+      entity_text=' '.join(word for word,pos in chunk)
+      entities.append((chunk.label(), entity_text))
+  return entities
+entities=extract_entities(ner_tree)
+df=pd.DataFrame(entities,columns=["Entity_type","Entity_Text"])
+print(df)
+
+
+--------------------PROGRAM-5----------------------
+
+import nltk 
+from nltk.util import ngrams 
+from nltk.tokenize import word_tokenize 
+text="The quick brown foxes are jumping!"
+try:
+  words=word_tokenize(text.lower())
+except LookupError:
+  nltk.download('punkt_tab')
+  words=word_tokenize(text.lower())
+n=2
+bigram=list(ngrams(words,n))
+for grams in bigram:
+  print(grams)
+
+
+
+
+
+import nltk 
+from nltk.util import ngrams 
+from nltk.tokenize import word_tokenize 
+text="The quick brown foxes are jumping!"
+try:
+  words=word_tokenize(text.lower())
+except LookupError:
+  nltk.download('punkt_tab')
+  words=word_tokenize(text.lower())
+n=3
+trigram=list(ngrams(words,n))
+for grams in trigram:
+  print(grams)
+
+
+
+import nltk 
+from nltk.util import ngrams 
+from nltk.tokenize import word_tokenize 
+text="The quick brown foxes are jumping!"
+try:
+  words=word_tokenize(text.lower())
+except LookupError:
+  nltk.download('punkt_tab')
+  words=word_tokenize(text.lower())
+n=2
+bigram=list(ngrams(words,n))
+for grams in bigram:
+  print(grams)
+n=3
+trigram=list(ngrams(words,n))
+for grams in trigram:
+  print(grams)
+print("List of Ngrams:")
+n=int(input('Enter N:'))
+ngram=list(ngrams(words,n))
+for grams in ngram:
+  print(grams)
